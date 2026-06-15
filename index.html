@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netra.exe — Developer Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --sage:#7C9A7E;
+  --sage-l:#A8BFAA;
+  --sage-ll:#D0E0D2;
+  --sage-d:#4A6B4C;
+  --sage-dd:#2B4A2D;
+  --blush:#D4A5A5;
+  --blush-l:#E8CECE;
+  --blush-ll:#F7EEEE;
+  --blush-d:#9B6B6B;
+  --cream:#F2EDE8;
+  --forest:#1E2E1F;
+  --card-bg:#FAFAF8;
+  --border:#D6E0D7;
+  --text:#222B23;
+  --muted:#6B7A6C;
+  --pixel:2px;
+}
+
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  color:var(--text);
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+}
+
+/* SCANLINE OVERLAY */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(74,107,76,0.018) 3px,rgba(74,107,76,0.018) 4px);
+  pointer-events:none;z-index:9999;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 3rem;height:56px;
+  background:var(--forest);
+  border-bottom:2px solid var(--sage-d);
+}
+.nav-logo{
+  font-family:'Space Mono',monospace;
+  font-size:0.85rem;color:var(--sage-l);
+  letter-spacing:0.05em;
+}
+.nav-logo span{color:var(--blush);}
+.nav-links{display:flex;gap:0;list-style:none;}
+.nav-links li a{
+  display:block;padding:0 1.1rem;height:56px;
+  line-height:56px;
+  font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  text-decoration:none;
+  border-left:1px solid rgba(255,255,255,0.06);
+  transition:color 0.15s,background 0.15s;
+  position:relative;
+}
+.nav-links li a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--sage);transform:scaleX(0);transition:transform 0.2s;
+}
+.nav-links li a:hover{color:var(--sage-l);background:rgba(124,154,126,0.08);}
+.nav-links li a:hover::after{transform:scaleX(1);}
+.nav-xp{
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  color:var(--sage-l);display:flex;align-items:center;gap:0.6rem;
+}
+.xp-bar{
+  width:80px;height:6px;background:rgba(255,255,255,0.1);
+  border:1px solid var(--sage-d);border-radius:0;
+}
+.xp-fill{
+  height:100%;background:var(--sage);width:72%;
+  animation:xpgrow 2s ease-out forwards;
+}
+@keyframes xpgrow{from{width:0}to{width:72%}}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:5rem 4rem 3rem;
+  gap:4rem;
+  position:relative;overflow:hidden;
+  background:var(--forest);
+}
+
+/* PIXEL GRID BG */
+.hero-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(124,154,126,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124,154,126,0.06) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+
+/* FLOATING PARTICLES */
+.particle{
+  position:absolute;width:4px;height:4px;
+  background:var(--sage);
+  animation:float linear infinite;
+  opacity:0;
+}
+@keyframes float{
+  0%{transform:translateY(0) translateX(0);opacity:0;}
+  10%{opacity:0.6;}
+  90%{opacity:0.3;}
+  100%{transform:translateY(-100vh) translateX(30px);opacity:0;}
+}
+
+.hero-left{position:relative;z-index:1;}
+
+.hero-tag{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  padding:0.3rem 0.8rem;
+  background:rgba(124,154,126,0.15);
+  border:1px solid var(--sage-d);
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--sage-l);margin-bottom:1.5rem;
+}
+.hero-tag-dot{
+  width:6px;height:6px;background:var(--sage);
+  animation:pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+.hero-title{
+  font-size:clamp(2.8rem,5.5vw,5rem);
+  font-weight:700;
+  line-height:1.0;
+  color:#fff;
+  margin-bottom:0.5rem;
+  letter-spacing:-0.02em;
+}
+.hero-title .line2{
+  color:var(--sage-l);
+  font-weight:300;
+  font-style:italic;
+  font-family:'Space Grotesk',sans-serif;
+}
+.hero-title .cursor-blink{
+  display:inline-block;width:4px;height:0.85em;
+  background:var(--blush);vertical-align:baseline;margin-left:2px;
+  animation:blink 1s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+.hero-desc{
+  font-size:1rem;color:rgba(255,255,255,0.5);
+  max-width:400px;line-height:1.75;
+  margin:1.5rem 0 2.5rem;
+}
+
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+
+.btn-pixel{
+  padding:0.75rem 1.8rem;
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;text-decoration:none;
+  border:none;
+  position:relative;
+  transition:transform 0.1s;
+}
+.btn-pixel:active{transform:translateY(2px);}
+
+.btn-primary-px{
+  background:var(--sage);color:var(--forest);
+  box-shadow:4px 4px 0 var(--sage-dd);
+}
+.btn-primary-px:hover{background:var(--sage-l);}
+
+.btn-ghost-px{
+  background:transparent;
+  color:var(--sage-l);
+  border:1px solid var(--sage-d);
+  box-shadow:4px 4px 0 rgba(74,107,76,0.4);
+}
+.btn-ghost-px:hover{background:rgba(124,154,126,0.1);}
+
+/* STATS BAR */
+.hero-stats{
+  display:flex;gap:2rem;margin-top:2.5rem;
+  padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.stat{text-align:left;}
+.stat-n{
+  font-family:'Space Mono',monospace;
+  font-size:1.6rem;font-weight:700;
+  color:var(--sage-l);line-height:1;
+}
+.stat-l{
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);margin-top:0.3rem;
+}
+
+/* TERMINAL CARD */
+.terminal{
+  background:#0D1A0E;
+  border:1px solid var(--sage-d);
+  box-shadow:8px 8px 0 rgba(74,107,76,0.35);
+  border-radius:0;
+  position:relative;z-index:1;
+  overflow:hidden;
+}
+.terminal-bar{
+  background:#1A2E1B;
+  padding:0.6rem 1rem;
+  display:flex;align-items:center;gap:0.5rem;
+  border-bottom:1px solid var(--sage-dd);
+}
+.t-dot{width:10px;height:10px;border-radius:50%;}
+.t-red{background:#E06C75;}
+.t-yellow{background:#E5C07B;}
+.t-green{background:#98C379;}
+.terminal-title{
+  font-family:'Space Mono',monospace;font-size:0.68rem;
+  color:rgba(255,255,255,0.35);margin-left:0.5rem;
+}
+.terminal-body{padding:1.4rem 1.6rem;}
+.tl{
+  font-family:'Space Mono',monospace;
+  font-size:0.8rem;line-height:2.1;
+  display:block;
+}
+.t-prompt{color:var(--sage);}
+.t-key{color:#ABB2BF;}
+.t-val{color:#98C379;}
+.t-str{color:#E5C07B;}
+.t-comment{color:#5C6370;font-style:italic;}
+.t-pink{color:var(--blush);}
+.t-cursor{
+  display:inline-block;width:9px;height:1em;
+  background:var(--sage);opacity:0.8;
+  vertical-align:text-bottom;
+  animation:blink 1s steps(1) infinite;
+}
+
+/* LEVEL SELECT / SKILLS */
+.skills-section{
+  padding:6rem 4rem;
+  background:var(--card-bg);
+  position:relative;
+}
+.section-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--sage);margin-bottom:0.6rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.section-eyebrow::before{
+  content:'▶';font-size:0.5rem;
+}
+.section-title{
+  font-size:clamp(1.8rem,3.5vw,2.8rem);
+  font-weight:700;color:var(--forest);
+  margin-bottom:0.4rem;letter-spacing:-0.02em;
+}
+.section-sub{
+  font-size:0.9rem;color:var(--muted);margin-bottom:3rem;
+}
+
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+}
+.skill-card{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:1.4rem 1.6rem;
+  position:relative;
+  transition:transform 0.15s,box-shadow 0.15s;
+  cursor:default;
+}
+.skill-card::before{
+  content:'';
+  position:absolute;top:0;left:0;width:3px;height:0;
+  background:var(--sage);
+  transition:height 0.3s ease;
+}
+.skill-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 24px rgba(44,74,46,0.1);
+}
+.skill-card:hover::before{height:100%;}
+
+.skill-icon-wrap{
+  width:40px;height:40px;
+  background:var(--sage-ll);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;margin-bottom:1rem;
+  border:1px solid var(--sage-l);
+}
+.skill-card:nth-child(even) .skill-icon-wrap{
+  background:var(--blush-ll);border-color:var(--blush-l);
+}
+.skill-name{
+  font-weight:600;font-size:0.9rem;color:var(--forest);
+  margin-bottom:0.25rem;
+}
+.skill-sub{
+  font-size:0.75rem;color:var(--muted);margin-bottom:0.9rem;
+  font-family:'Space Mono',monospace;
+}
+.skill-bar-wrap{
+  background:var(--sage-ll);height:4px;
+  position:relative;overflow:hidden;
+}
+.skill-bar-fill{
+  height:100%;background:var(--sage-d);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.8s cubic-bezier(0.25,1,0.5,1);
+}
+.skill-card:nth-child(even) .skill-bar-fill{background:var(--blush-d);}
+.skill-lv{
+  margin-top:0.4rem;
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  color:var(--muted);letter-spacing:0.08em;
+  display:flex;justify-content:space-between;
+}
+
+/* PROJECTS */
+.projects-section{
+  padding:6rem 4rem;
+  background:var(--forest);
+  position:relative;
+  overflow:hidden;
+}
+.projects-section .section-eyebrow{color:var(--sage-l);}
+.projects-section .section-title{color:#fff;}
+.projects-section .section-sub{color:rgba(255,255,255,0.4);}
+
+/* BG grid for projects */
+.projects-section::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(124,154,126,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(124,154,126,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;
+  position:relative;z-index:1;
+}
+.proj-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(124,154,126,0.2);
+  position:relative;overflow:hidden;
+  transition:transform 0.2s,border-color 0.2s;
+  cursor:pointer;
+}
+.proj-card:hover{
+  transform:translateY(-4px);
+  border-color:var(--sage);
+}
+
+/* corner accent */
+.proj-card::after{
+  content:'';
+  position:absolute;
+  top:0;right:0;
+  width:0;height:0;
+  border-style:solid;
+  border-width:0 32px 32px 0;
+  border-color:transparent var(--sage-d) transparent transparent;
+  transition:border-color 0.2s;
+}
+.proj-card:hover::after{border-color:transparent var(--sage) transparent transparent;}
+
+.proj-thumb{
+  height:160px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.proj-thumb-1{background:linear-gradient(135deg,#1A2E1B,#2D4A2E);}
+.proj-thumb-2{background:linear-gradient(135deg,#2A1E1E,#4A2D2D);}
+.proj-thumb-3{background:linear-gradient(135deg,#1E251A,#2E3F28);}
+.proj-thumb-4{background:linear-gradient(135deg,#2A1E2E,#3D2A4A);}
+
+.proj-mini-terminal{
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(124,154,126,0.3);
+  padding:0.7rem 1rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  color:rgba(255,255,255,0.7);line-height:1.7;
+  width:200px;
+}
+.proj-mini-terminal .hl{color:var(--sage-l);}
+.proj-mini-terminal .hl2{color:var(--blush);}
+
+.proj-body{padding:1.4rem 1.5rem;}
+.proj-num{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  color:var(--sage-l);letter-spacing:0.1em;
+  opacity:0.6;margin-bottom:0.4rem;
+}
+.proj-title{
+  font-size:1.15rem;font-weight:700;color:#fff;
+  margin-bottom:0.5rem;
+}
+.proj-desc{
+  font-size:0.83rem;color:rgba(255,255,255,0.45);
+  line-height:1.7;margin-bottom:1rem;
+}
+.proj-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem;}
+.proj-tag{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.06em;
+  padding:0.2rem 0.55rem;
+  background:rgba(124,154,126,0.12);
+  border:1px solid rgba(124,154,126,0.25);
+  color:var(--sage-l);
+}
+.proj-tag.blush{
+  background:rgba(212,165,165,0.12);
+  border-color:rgba(212,165,165,0.25);
+  color:var(--blush-l);
+}
+.proj-link{
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  color:var(--sage-l);text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.4rem;
+  letter-spacing:0.06em;
+  transition:color 0.15s,gap 0.15s;
+}
+.proj-link:hover{color:var(--sage-ll);gap:0.7rem;}
+
+/* INTERACTIVE XP SECTION */
+.xp-section{
+  padding:5rem 4rem;
+  background:var(--cream);
+  position:relative;
+}
+.xp-section .section-eyebrow{color:var(--sage-d);}
+.xp-section .section-title{color:var(--forest);}
+.xp-section .section-sub{color:var(--muted);}
+
+.xp-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
+}
+.xp-panel{
+  background:#fff;
+  border:1px solid var(--border);
+  padding:2rem;
+  position:relative;
+}
+.xp-panel-title{
+  font-family:'Space Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--sage-d);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.xp-panel-title::before{content:'//';color:var(--blush-d);}
+
+/* INVENTORY / SKILLS LIST */
+.inv-item{
+  display:flex;align-items:center;gap:0.8rem;
+  padding:0.6rem 0;
+  border-bottom:1px solid var(--sage-ll);
+  cursor:pointer;
+  transition:padding-left 0.15s;
+}
+.inv-item:last-child{border-bottom:none;}
+.inv-item:hover{padding-left:0.4rem;}
+.inv-icon{
+  width:32px;height:32px;
+  background:var(--sage-ll);
+  border:1px solid var(--sage-l);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.85rem;flex-shrink:0;
+}
+.inv-name{font-size:0.85rem;font-weight:600;color:var(--forest);}
+.inv-type{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  color:var(--muted);margin-top:1px;
+}
+.inv-rarity{
+  margin-left:auto;
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  padding:0.15rem 0.45rem;
+  letter-spacing:0.06em;
+}
+.rare-gold{background:#FFF5D9;border:1px solid #E5C07B;color:#7A5C00;}
+.rare-green{background:var(--sage-ll);border:1px solid var(--sage-l);color:var(--sage-dd);}
+.rare-pink{background:var(--blush-ll);border:1px solid var(--blush-l);color:var(--blush-d);}
+
+/* ACHIEVEMENT PANEL */
+.achievement{
+  display:flex;align-items:flex-start;gap:0.9rem;
+  padding:0.8rem;
+  background:var(--sage-ll);
+  border:1px solid var(--sage-l);
+  margin-bottom:0.75rem;
+  transition:background 0.15s;
+  cursor:default;
+}
+.achievement:hover{background:var(--sage-l);}
+.ach-icon{
+  width:40px;height:40px;
+  background:var(--sage);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+  border:2px solid var(--sage-d);
+}
+.ach-title{font-weight:600;font-size:0.85rem;color:var(--forest);margin-bottom:2px;}
+.ach-desc{font-size:0.75rem;color:var(--muted);line-height:1.5;}
+.ach-pts{
+  margin-left:auto;flex-shrink:0;
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  color:var(--sage-d);font-weight:700;
+}
+
+/* CONTACT */
+.contact-section{
+  padding:6rem 4rem;
+  background:var(--forest);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.contact-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(124,154,126,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(124,154,126,0.04) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;
+}
+
+.contact-inner{position:relative;z-index:1;}
+.contact-section .section-eyebrow{
+  justify-content:center;color:var(--sage-l);
+}
+.contact-section .section-title{color:#fff;margin:0 auto 1rem;max-width:500px;}
+
+.contact-prompt{
+  font-family:'Space Mono',monospace;
+  font-size:1.1rem;color:var(--sage-l);
+  margin-bottom:2.5rem;
+  display:flex;align-items:center;justify-content:center;gap:0;
+}
+.contact-prompt .cp-text{
+  color:#fff;
+}
+.contact-prompt .cp-cursor{
+  display:inline-block;width:12px;height:1.1em;
+  background:var(--blush);margin-left:2px;
+  animation:blink 1s steps(1) infinite;
+  vertical-align:text-bottom;
+}
+
+.contact-email{
+  display:inline-block;
+  font-family:'Space Mono',monospace;font-size:1.1rem;
+  color:#fff;text-decoration:none;
+  padding:0.9rem 2.5rem;
+  border:1px solid var(--sage);
+  box-shadow:6px 6px 0 var(--sage-dd);
+  margin-bottom:3rem;
+  transition:background 0.15s,transform 0.1s;
+}
+.contact-email:hover{background:rgba(124,154,126,0.12);}
+.contact-email:active{transform:translate(2px,2px);box-shadow:4px 4px 0 var(--sage-dd);}
+
+.socials{display:flex;justify-content:center;gap:0.75rem;}
+.social-btn{
+  padding:0.55rem 1.3rem;
+  font-family:'Space Mono',monospace;font-size:0.68rem;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.12);
+  text-decoration:none;cursor:pointer;
+  transition:color 0.15s,border-color 0.15s,background 0.15s;
+}
+.social-btn:hover{color:var(--sage-l);border-color:var(--sage-d);background:rgba(124,154,126,0.08);}
+
+/* FOOTER */
+footer{
+  background:#0D1A0E;
+  padding:1.5rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid var(--sage-dd);
+}
+.footer-logo{
+  font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--sage-l);
+}
+.footer-copy{
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  color:rgba(255,255,255,0.2);
+}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.5s,transform 0.5s;}
+.reveal.in{opacity:1;transform:none;}
+
+/* PIXEL CORNER DECORATION */
+.px-corner{
+  position:absolute;
+  width:8px;height:8px;
+  background:var(--sage);
+  opacity:0.5;
+}
+.px-tl{top:0;left:0;}
+.px-tr{top:0;right:0;}
+.px-bl{bottom:0;left:0;}
+.px-br{bottom:0;right:0;}
+
+@media(max-width:768px){
+  nav{padding:0 1rem;}
+  .nav-links{display:none;}
+  .nav-xp{display:none;}
+  .hero,.xp-grid{grid-template-columns:1fr;}
+  .terminal{display:none;}
+  .hero,.skills-section,.projects-section,.xp-section,.contact-section{padding:4rem 1.5rem;}
+  footer{padding:1rem 1.5rem;flex-direction:column;gap:0.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">netra<span>.exe</span></span>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#xp">Inventory</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-xp">
+    <span>LVL 12</span>
+    <div class="xp-bar"><div class="xp-fill"></div></div>
+    <span>XP 720/1000</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <!-- particles injected by JS -->
+
+  <div class="hero-left">
+    <div class="hero-tag">
+      <div class="hero-tag-dot"></div>
+      Open to opportunities &amp; connections
+    </div>
+    <h1 class="hero-title">
+      Netra<br>
+      <span class="line2">student • developer • creator</span><span class="cursor-blink"></span>
+    </h1>
+    <p class="hero-desc">I'm a 17-year-old student passionate about coding, web development, and building creative tech projects. I've developed websites, voicebots, and chatbots while continuously improving my problem-solving and technical skills. Through MUNs and the G20 presentation competition, I strengthened my communication, leadership, and teamwork abilities. I'm a WhiteHat Jr certified Full Stack Developer who enjoys project management, learning new technologies, and connecting with people who inspire growth in the tech world.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-pixel btn-primary-px">View Projects</a>
+      <a href="#contact" class="btn-pixel btn-ghost-px">Say Hello</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-n" id="proj-count">4</div>
+        <div class="stat-l">Projects</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" id="yr-count">0</div>
+        <div class="stat-l">Years coding</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" id="commit-count">0</div>
+        <div class="stat-l">Commits</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="t-dot t-red"></div>
+        <div class="t-dot t-yellow"></div>
+        <div class="t-dot t-green"></div>
+        <span class="terminal-title">~/netra/profile.json</span>
+      </div>
+      <div class="terminal-body">
+        <span class="tl"><span class="t-prompt">❯</span> <span class="t-key">cat</span> <span class="t-val">profile.json</span></span>
+        <span class="tl">{</span>
+        <span class="tl" style="padding-left:1.2rem"><span class="t-key">"name"</span>: <span class="t-str">"Netra"</span>,</span>
+        <span class="tl" style="padding-left:1.2rem"><span class="t-key">"role"</span>: <span class="t-str">"Full-Stack Dev"</span>,</span>
+        <span class="tl" style="padding-left:1.2rem"><span class="t-key">"level"</span>: <span class="t-val">12</span>,</span>
+        <span class="tl" style="padding-left:1.2rem"><span class="t-key">"stack"</span>: [</span>
+        <span class="tl" style="padding-left:2.4rem"><span class="t-str">"React"</span>, <span class="t-str">"CSS"</span>,</span>
+        <span class="tl" style="padding-left:2.4rem"><span class="t-str">"JavaScript"</span>, <span class="t-str">"SQL"</span></span>
+        <span class="tl" style="padding-left:1.2rem">],</span>
+        <span class="tl" style="padding-left:1.2rem"><span class="t-key">"status"</span>: <span class="t-pink">"open_to_work"</span>,</span>
+        <span class="tl" style="padding-left:1.2rem"><span class="t-comment">// always learning ✿</span></span>
+        <span class="tl">}<span class="t-cursor"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <p class="section-eyebrow">Skill tree</p>
+  <h2 class="section-title">Technologies</h2>
+  <p class="section-sub">Hover to see progress. Each bar represents real project experience.</p>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon-wrap">⚛</div>
+      <div class="skill-name">HTML</div>
+      <div class="skill-sub">MARKUP</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-fill" data-w="95"></div></div>
+      <div class="skill-lv"><span>Lv.9</span><span>90%</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.05s">
+      <div class="skill-icon-wrap">🐍</div>
+      <div class="skill-name">CSS</div>
+      <div class="skill-sub">STYLING</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-fill" data-w="88"></div></div>
+      <div class="skill-lv"><span>Lv.8</span><span>88%</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.1s">
+      <div class="skill-icon-wrap">🟩</div>
+      <div class="skill-name">Node.js</div>
+      <div class="skill-sub">PROGRAMMING</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-fill" data-w="78"></div></div>
+      <div class="skill-lv"><span>Lv.7</span><span>78%</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.15s">
+      <div class="skill-icon-wrap">🎨</div>
+      <div class="skill-name">Python</div>
+      <div class="skill-sub">AUTOMATION</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-fill" data-w="93"></div></div>
+      <div class="skill-lv"><span>Lv.9</span><span>93%</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.2s">
+      <div class="skill-icon-wrap">🛢</div>
+      <div class="skill-name">SQL</div>
+      <div class="skill-sub">DATABASES</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-fill" data-w="74"></div></div>
+      <div class="skill-lv"><span>Lv.7</span><span>74%</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:0.25s">
+      <div class="skill-icon-wrap">☁️</div>
+      <div class="skill-name">SQL</div>
+      <div class="skill-sub">SCRIPTING</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-fill" data-w="61"></div></div>
+      <div class="skill-lv"><span>Lv.6</span><span>61%</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <p class="section-eyebrow">Quest log</p>
+  <h2 class="section-title">Projects</h2>
+  <p class="section-sub">Selected work — click any card to explore further.</p>
+
+  <div class="proj-grid">
+    <div class="proj-card reveal" onclick="window.location='#'">
+      <div class="proj-thumb proj-thumb-1">
+        <div class="proj-mini-terminal">
+          <span class="hl">@route('/FLIP')</span><br>
+          def analyze():<br>
+          &nbsp;&nbsp;model = <span class="hl2">FLIP.fit(data)</span><br>
+          &nbsp;&nbsp;return()
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-num">QUEST_01</div>
+        <div class="proj-title">FLIP Memory CardGame </div>
+        <div class="proj-desc">Card memory is a game where you have to click on a card to see what image is underneath it and try to find the matching image underneath the other cards.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML</span>
+          <span class="proj-tag">CSS</span>
+          <span class="proj-tag">JS</span>
+          <span class="proj-tag blush">Game</span>
+        </div>
+        <a href="https://codepen.io/Netra_K/full/pvRbMrM" class="proj-link" onclick="return true">View live →</a>
+      </div>
+    </div>
+
+    <div class="proj-card reveal" style="transition-delay:0.1s" onclick="window.location='#'">
+      <div class="proj-thumb proj-thumb-2">
+        <div class="proj-mini-terminal">
+          <span class="hl">// Multiply</span><br>
+          12 x 4 = <span class="hl2">48(</span><br>
+          &nbsp;&nbsp;multiply, setmultiply<br>
+          <span class="hl2">)</span>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-num">QUEST_02</div>
+        <div class="proj-title">MultiplyX</div>S
+        <div class="proj-desc">Multiplication FlashCards, a time tested technique used by students to review and test their knowledge on a multplication tables.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML</span>
+          <span class="proj-tag">JavaScript</span>
+           <span class="proj-tag">CSS</span>
+          <span class="proj-tag blush">Math</span>
+        </div>
+        <a href="https://codepen.io/Netra_K/full/ZYLOggp" class="proj-link" onclick="return true">View live →</a>
+      </div>
+    </div>
+
+    <div class="proj-card reveal" style="transition-delay:0.2s" onclick="window.location='#'">
+      <div class="proj-thumb proj-thumb-3">
+        <div class="proj-mini-terminal">
+          <span class="hl">SELECT name,</span><br>
+          &nbsp;&nbsp;growth_rate<br>
+          FROM plants<br>
+          <span class="hl2">WHERE happy = true</span>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-num">QUEST_03</div>
+        <div class="proj-title">Garden DB</div>
+        <div class="proj-desc">Full-stack community plant-care platform. RESTful API, auth, and a care recommendation engine.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">PostgreSQL</span>
+          <span class="proj-tag">Node.js</span>
+          <span class="proj-tag blush">Open source</span>
+        </div>
+        <a href="#" class="proj-link" onclick="return false">GitHub →</a>
+      </div>
+    </div>
+
+    <div class="proj-card reveal" style="transition-delay:0.3s" onclick="window.location='#'">
+      <div class="proj-thumb proj-thumb-4">
+        <div class="proj-mini-terminal">
+          <span class="hl">// moss design sys</span><br>
+          import { Button,<br>
+          &nbsp;&nbsp;Card, Token }<br>
+          from <span class="hl2">'@moss/core'</span>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-num">QUEST_04</div>
+        <div class="proj-title">Moss Design System</div>
+        <div class="proj-desc">Component library and design token system for small teams. Accessibility-first, fully documented.</div>
+        <div class="proj-tags">
+          <span class="proj-tag">CSS</span>
+          <span class="proj-tag">Storybook</span>
+          <span class="proj-tag blush">Design</span>
+        </div>
+        <a href="#" class="proj-link" onclick="return false">Documentation →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INVENTORY + ACHIEVEMENTS -->
+<section class="xp-section" id="xp">
+  <p class="section-eyebrow">Character sheet</p>
+  <h2 class="section-title">Inventory &amp; Achievements</h2>
+  <p class="section-sub">The tools I carry and the milestones I've unlocked.</p>
+
+  <div class="xp-grid reveal">
+    <div class="xp-panel">
+      <div class="px-corner px-tl"></div>
+      <div class="px-corner px-br"></div>
+      <div class="xp-panel-title">Equipment</div>
+
+      <div class="inv-item">
+        <div class="inv-icon">⚡</div>
+        <div><div class="inv-name">VS Code</div><div class="inv-type">IDE / Editor</div></div>
+        <div class="inv-rarity rare-gold">Legendary</div>
+      </div>
+      <div class="inv-item">
+        <div class="inv-icon">🌿</div>
+        <div><div class="inv-name">Git / GitHub</div><div class="inv-type">Version Control</div></div>
+        <div class="inv-rarity rare-gold">Legendary</div>
+      </div>
+      
+      <div class="inv-item">
+        <div class="inv-icon">🔬</div>
+        <div><div class="inv-name">Jupyter</div><div class="inv-type">Data Science</div></div>
+        <div class="inv-rarity rare-pink">Uncommon</div>
+      </div>
+      <div class="inv-item">
+        <div class="inv-icon">☁️</div>
+        <div><div class="inv-name">CodePen</div><div class="inv-type">Cloud IDE</div></div>
+        <div class="inv-rarity rare-pink">Uncommon</div>
+      </div>
+    </div>
+
+
+
+    <div class="xp-panel">
+      <div class="px-corner px-tl"></div>
+      <div class="px-corner px-br"></div>
+      <div class="xp-panel-title">Achievements</div>
+
+      <div class="achievement">
+        <div class="ach-icon">🎓</div>
+        <div>
+          <div class="ach-title">WhiteHat Jr Full Stack Developer</div>
+          <div class="ach-desc">Certified Full Stack Developer through WhiteHat Jr.</div>
+        </div>
+        <div class="ach-pts">+500 XP</div>
+      </div>
+      <div>
+       
+      <div class="px-corner px-tl"></div>
+      <div class="px-corner px-br"></div>
+  
+      <div class="achievement">
+        <div class="ach-icon">🎓</div>
+          <div class="ach-title">Harvard CS50's Introduction to Cybersecurity Certified</div>
+        <div class="ach-pts">+500 XP</div>
+      </div>
+       <div>
+       
+      <div class="px-corner px-tl"></div>
+      <div class="px-corner px-br"></div>
+  
+      <div class="achievement">
+        <div class="ach-icon">🎓</div>
+          <div class="ach-title">ISC2 CISSP Certified</div>
+        <div class="ach-pts">+500 XP</div>
+      </div>
+
+      <div class="achievement">
+        <div class="ach-icon">⭐</div>
+        <div>
+          <div class="ach-title">Locked Achievement</div>
+          <div class="ach-desc">Achievement coming soon.</div>
+        </div>
+        <div class="ach-pts">+250 XP</div>
+      </div>
+      <div class="achievement">
+        <div class="ach-icon">🎓</div>
+        <div>
+          <div class="ach-title">Locked Achievement</div>
+          <div class="ach-desc">Achievement coming soon.</div>
+        </div>
+        <div class="ach-pts">+400 XP</div>
+      </div>
+      <div class="achievement" style="opacity:0.5;">
+        <div class="ach-icon" style="filter:grayscale(1)">🔒</div>
+        <div>
+          <div class="ach-title">Locked</div>
+          <div class="ach-desc">Achievement coming soon.</div>
+        </div>
+        <div class="ach-pts">+Locked XP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <p class="section-eyebrow">New game+</p>
+    <h2 class="section-title">Start a new quest</h2>
+    <div class="contact-prompt">
+      <span>$ </span><span class="cp-text">netra --contact --open-to-work</span><span class="cp-cursor"></span>
+    </div>
+    <a href="mailto:netrakulkarni2008@gmail.com" class="contact-email">netrakulkarni2008@gmail.com</a>
+    <div class="socials">
+      <a href="https://github.com/NetraK08" class="social-btn">GitHub</a>
+      <a href="https://www.linkedin.com/in/netra-kulkarni-003813388" class="social-btn">LinkedIn</a>
+            <a href="#" class="social-btn">Twitter</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">netra.exe — v1.0.0</span>
+  <span class="footer-copy">built with curiosity, creativity, and a passion for learning · 2026</span>
+</footer>
+
+<script>
+// Floating particles
+const hero = document.querySelector('.hero');
+for(let i=0;i<18;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.cssText=`
+    left:${Math.random()*100}%;
+    bottom:${Math.random()*20}%;
+    width:${Math.random()>0.5?4:6}px;
+    height:${Math.random()>0.5?4:6}px;
+    background:${Math.random()>0.5?'#7C9A7E':'#D4A5A5'};
+    animation-delay:${Math.random()*6}s;
+    animation-duration:${4+Math.random()*6}s;
+  `;
+  hero.appendChild(p);
+}
+
+// Counter animation
+function animateCounter(el, target, suffix=''){
+  if(!el) return;
+  if(target===0){ el.textContent='0'+suffix; return; }
+  let start=0;
+  const increment=Math.ceil(target/40);
+  const step=()=>{
+    start+=increment;
+    if(start>=target){ el.textContent=target+suffix; return; }
+    el.textContent=start+suffix;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+setTimeout(()=>{
+  animateCounter(document.getElementById('proj-count'),0);
+  animateCounter(document.getElementById('yr-count'),6);
+  animateCounter(document.getElementById('commit-count'),2);
+},600);
+
+// Scroll reveal
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      // animate skill bars
+      e.target.querySelectorAll('.skill-bar-fill').forEach(b=>{
+        b.style.transform=`scaleX(${b.dataset.w/100})`;
+      });
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Also trigger skill bars when cards enter
+const skillObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelector('.skill-bar-fill').style.transform=
+        `scaleX(${e.target.querySelector('.skill-bar-fill').dataset.w/100})`;
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.skill-card').forEach(c=>skillObs.observe(c));
+</script>
+</body>
+</html>
